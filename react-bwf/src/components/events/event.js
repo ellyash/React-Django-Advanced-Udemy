@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { DateTime } from 'luxon';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
-import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
-import { useFetchEvent } from '../../hooks/fetch-event';
-import { useAuth } from '../../hooks/useAuth';
-import { Button, TextField } from '@material-ui/core';
-import { useHistory, Link } from 'react-router-dom';
-import User from '../user/user';
-import { placeBet, setResults } from '../../services/event-service';
-import { NotificationManager } from 'react-notifications';
-import { CssTextField } from '../layout/elements';
-import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
+import { Button, TextField } from "@material-ui/core";
+import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { placeBet, setResults } from "../../services/event-service";
+
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import { CssTextField } from "../layout/elements";
+import { DateTime } from "luxon";
+import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import { NotificationManager } from "react-notifications";
+import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
+import User from "../user/user";
+import { makeStyles } from "@material-ui/core/styles";
+import { useAuth } from "../../hooks/useAuth";
+import { useFetchEvent } from "../../hooks/fetch-event";
+import { useParams } from "react-router-dom";
 
 export default function Event() {
 	const classes = useStyles();
@@ -57,8 +58,8 @@ export default function Event() {
 				event.bets[myBetIndex] = bet.result;
 			}
 			NotificationManager.success(bet.message);
-			setScore1('');
-			setScore2('');
+			setScore1("");
+			setScore2("");
 		}
 	};
 
@@ -70,11 +71,11 @@ export default function Event() {
 		});
 		if (eventData) {
 			setEvent(eventData);
-			NotificationManager.success('Score has been set');
-			setScore1('');
-			setScore2('');
+			NotificationManager.success("Score has been set");
+			setScore1("");
+			setScore2("");
 		} else {
-			NotificationManager.error('Scores could not be set');
+			NotificationManager.error("Scores could not be set");
 		}
 	};
 
@@ -96,8 +97,7 @@ export default function Event() {
 				{event && evtTime && (
 					<div>
 						<h2>
-							{event.team1}{' '}
-							<span className={classes.accent}>VS</span>{' '}
+							{event.team1} <span className={classes.accent}>VS</span>{" "}
 							{event.team2}
 						</h2>
 						{event.score1 >= 0 && event.score2 >= 0 && (
@@ -106,17 +106,13 @@ export default function Event() {
 							</h2>
 						)}
 						<p className={classes.dateTime}>
-							<CalendarTodayIcon
-								className={classes.dateIcon}
-							/>
+							<CalendarTodayIcon className={classes.dateIcon} />
 							{evtTime.toSQLDate()}
 							&nbsp; &nbsp;
 							{/* 	</p>
 						<p className={classes.dateTime}> */}
-							<QueryBuilderIcon
-								className={classes.dateIcon}
-							/>
-							{evtTime.toFormat('HH:mm')}
+							<QueryBuilderIcon className={classes.dateIcon} />
+							{evtTime.toFormat("HH:mm")}
 						</p>
 						{isFuture ? (
 							<h2>Starts {timeDiff}</h2>
@@ -131,30 +127,21 @@ export default function Event() {
 										<hr />
 
 										<h3>Your Bet</h3>
-										<div
-											key={bet.id}
-											className={classes.bets}
-										>
-											<User user={bet.user} />{' '}
+										<div key={bet.id} className={classes.bets}>
+											<User user={bet.user} />{" "}
 											<h2>
-												{bet.score1} :{' '}
-												{bet.score2}
+												{bet.score1} : {bet.score2}
 											</h2>
 											<h3>
-												{bet.points === null
-													? 0
-													: bet.points}{' '}
-												pts
+												{bet.points === null ? 0 : bet.points} pts
 											</h3>
 										</div>
 										{isFuture && (
 											<div>
-												{' '}
+												{" "}
 												<h3>
-													Total number of
-													bets:{' '}
-													{event.count_bets}
-												</h3>{' '}
+													Total number of bets: {event.count_bets}
+												</h3>{" "}
 											</div>
 										)}
 										<hr />
@@ -168,18 +155,16 @@ export default function Event() {
 									label="Score 1"
 									type="number"
 									inputProps={{
-										inputMode: 'numeric',
-										pattern: '[0-9]*',
-										min: '0',
-										max: '100',
-										step: '1',
+										inputMode: "numeric",
+										pattern: "[0-9]*",
+										min: "0",
+										max: "100",
+										step: "1",
 										style: {
-											textAlign: 'center',
+											textAlign: "center",
 										},
 									}}
-									onChange={(e) =>
-										setScore1(e.target.value)
-									}
+									onChange={(e) => setScore1(e.target.value)}
 									className={classes.numberField}
 								/>
 								<span className={classes.accent}>
@@ -189,20 +174,18 @@ export default function Event() {
 									label="Score 2"
 									type="number"
 									inputProps={{
-										inputMode: 'numeric',
-										pattern: '[0-9]*',
-										min: '0',
-										max: '100',
-										step: '1',
+										inputMode: "numeric",
+										pattern: "[0-9]*",
+										min: "0",
+										max: "100",
+										step: "1",
 										style: {
-											textAlign: 'center',
+											textAlign: "center",
 										},
 									}}
-									onChange={(e) =>
-										setScore2(e.target.value)
-									}
+									onChange={(e) => setScore2(e.target.value)}
 									className={classes.numberField}
-								/>{' '}
+								/>{" "}
 								<br />
 								<br />
 								<Button
@@ -220,18 +203,16 @@ export default function Event() {
 									label="Score 1"
 									type="number"
 									inputProps={{
-										inputMode: 'numeric',
-										pattern: '[0-9]*',
-										min: '0',
-										max: '100',
-										step: '1',
+										inputMode: "numeric",
+										pattern: "[0-9]*",
+										min: "0",
+										max: "100",
+										step: "1",
 										style: {
-											textAlign: 'center',
+											textAlign: "center",
 										},
 									}}
-									onChange={(e) =>
-										setScore1(e.target.value)
-									}
+									onChange={(e) => setScore1(e.target.value)}
 									className={classes.numberField}
 								/>
 								<span className={classes.accent}>
@@ -241,18 +222,16 @@ export default function Event() {
 									label="Score 2"
 									type="number"
 									inputProps={{
-										inputMode: 'numeric',
-										pattern: '[0-9]*',
-										min: '0',
-										max: '100',
-										step: '1',
+										inputMode: "numeric",
+										pattern: "[0-9]*",
+										min: "0",
+										max: "100",
+										step: "1",
 										style: {
-											textAlign: 'center',
+											textAlign: "center",
 										},
 									}}
-									onChange={(e) =>
-										setScore2(e.target.value)
-									}
+									onChange={(e) => setScore2(e.target.value)}
 									className={classes.numberField}
 								/>
 								<br />
@@ -275,29 +254,29 @@ export default function Event() {
 }
 const useStyles = makeStyles((theme) => ({
 	container: {
-		textAlign: 'center',
+		textAlign: "center",
 	},
 	dateTime: {
-		fontSize: '18px',
+		fontSize: "18px",
 
-		margin: '0 5px',
+		margin: "0 5px",
 	},
 	dateIcon: {
-		fontSize: '23px',
+		fontSize: "23px",
 		color: theme.colors.mainAccentColor,
-		marginRight: '5px',
+		marginRight: "5px",
 	},
 	bets: {
-		display: 'grid',
-		gridTemplateColumns: '1fr 3fr 1fr',
-		margin: '5px 0 0 0',
+		display: "grid",
+		gridTemplateColumns: "1fr 3fr 1fr",
+		margin: "5px 0 0 0",
 	},
 	accent: {
 		color: theme.palette.primary.main,
-		fontSize: '20px',
+		fontSize: "20px",
 	},
 	numberField: {
-		width: '120px',
-		textAlign: 'center',
+		width: "120px",
+		textAlign: "center",
 	},
 }));
